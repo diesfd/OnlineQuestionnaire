@@ -10,7 +10,7 @@ import java.util.Map;
 @Mapper
 public interface UserMapper {
 
-    @Insert("insert into t_user (student_id, name, password) values (#{studentId, name, password})")
+    @Insert("insert into t_user (student_id, name, password) values (#{studentId}, #{name}, #{password})")
     int addNewUser(Map<String, Object> param);
 
     @Select("select * from t_user tu where tu.student_id = #{studentId}")
