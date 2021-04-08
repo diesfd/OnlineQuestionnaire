@@ -1,10 +1,12 @@
 package com.zyx.OnlineQuestionnaire.service;
 
 import com.zyx.OnlineQuestionnaire.dao.UserMapper;
+import com.zyx.OnlineQuestionnaire.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
+@Service
 public class UserService {
 
     private UserMapper userMapper;
@@ -13,29 +15,29 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public String addNewUser(Map<String, Object> param) {
-        List<Map<String, Object>> users = findUserByStudentId(param);
-        if (users != null || users.size() > 0) {
-            return "用户已存在";
+    public String addNewUser(User user) {
+        List<User> users = findUserByStudentId(user);
+        if (users != null && users.size() > 0) {
+            return "fail";
         }
-        int result = userMapper.addNewUser(param);
-        if (result > 1)
-            return "插入成功！";
+        int result = userMapper.addNewUser(user);
+        if (result >= 1)
+            return "registerSuccess";
         else
-            return "插入失败";
+            return "fail";
     }
 
-    public List<Map<String, Object>> findUserByStudentId(Map<String, Object> param) {
-        return userMapper.findUserByStudentId(param);
+    public List<User> findUserByStudentId(User user) {
+        return userMapper.findUserByStudentId(user);
     }
 
-    public String login(Map<String, Object> param) {
-        List<Map<String, Object>> users = findUserByStudentId(param);
+    public String login(User param) {
+        List<User> users = findUserByStudentId(param);
         if (users == null || users.size() == 0) {
             return "该用户不存在";
         } else {
-            Map user = users.get(0);
-            if (user.get("password").equals(param.get("password"))) {
+            User user = users.get(0);
+            if (param.getPassword().equals(user.getPassword())) {
                 // 如果密码与邮箱配对成功:
                 return "登陆成功";
             } else {

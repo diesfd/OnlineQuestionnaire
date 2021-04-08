@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>深圳大学数学与统计学院</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+<div align="center">
+<h2>深圳大学数学与统计学院在线答题系统</h2>
+<script>
+    function validateForm() {
+        var x = document.forms["register"]["studentId"].value;
+        if (x == null || x == "") {
+            alert("需要输入学号。");
+            return false;
+        }
+        x = document.forms["register"]["name"].value;
+        if (x == null || x == "") {
+            alert("需要输入名字。");
+            return false;
+        }
+        x = document.forms["register"]["password"].value;
+        if (x == null || x == "") {
+            alert("需要输入密码。");
+            return false;
+        }
+    }
+</script>
+<div class="add">
+    <h2>注册新账号</h2>
+    <form name="register" onsubmit="return validateForm()" action="/user/add" method="POST">
+        学号:<input type="text" name="studentId"><br>
+        姓名:<input type="text" name="name"><br>
+        密码:<input type="password" name="password"><br>
+        <input type="submit" value="注册">
+    </form>
+</div>
+</div>
+</body>
+
+</html>

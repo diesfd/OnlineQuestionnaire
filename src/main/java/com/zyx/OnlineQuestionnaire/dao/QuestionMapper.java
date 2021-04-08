@@ -1,5 +1,6 @@
 package com.zyx.OnlineQuestionnaire.dao;
 
+import com.zyx.OnlineQuestionnaire.model.Question;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -12,13 +13,13 @@ public interface QuestionMapper {
     List<Map<String, Object>> getAllQuestions();
 
     @Insert("insert into t_question(type, question, answer, options) values (#{type}, #{question}, #{answer}, #{options})")
-    int insertQuestion(Map<String, Object> param);
+    int insertQuestion(Question param);
 
     @Delete("delete from t_question where id = #{id}")
-    int deleteQuestion(Map<String, Object> param);
+    int deleteQuestion(Question param);
 
     @Update("UPDATE t_question SET type = #{type}, question = #{question}, answer = #{answer}, options = #{options} WHERE id = #{id}")
-    int updateQuestion(Map<String, Object> param);
+    int updateQuestion(Question param);
 
     @Select("<script>"+
             "select * from t_question tq"+

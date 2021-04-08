@@ -1,6 +1,7 @@
 package com.zyx.OnlineQuestionnaire.service;
 
 import com.zyx.OnlineQuestionnaire.dao.QuestionMapper;
+import com.zyx.OnlineQuestionnaire.model.Question;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,62 +20,52 @@ public class QuestionService {
         return questionMapper.getAllQuestions();
     }
 
-    public String insertQuestion(Map<String, Object> param) {
-        if (param.get("type") == null || param.get("question") == null) {
-            return "参数错误";
-        }
+    public String insertQuestion(Question question) {
 
         int result = 0;
         // 填空
-        if ((Integer) param.get("type") == 1) { //填空
-            param.put("answer", "");
-            param.put("options", "");
-            result = questionMapper.insertQuestion(param);
-        } else if ((Integer) param.get("type") == 2) { //选择
-            if (param.get("answer") == null ||param.get("answer").toString().length() == 0) {
-                return "参数错误，没有答案";
-            } else if (param.get("options") == null ||param.get("options").toString().length() == 0) {
-                return "参数错误，没有选项";
+        if (question.getType() == 1) { //填空
+            question.setAnswer("");
+            question.setOptions("");
+            result = questionMapper.insertQuestion(question);
+        } else if (question.getType() == 2) { //选择
+            if (question.getAnswer() == null ||question.getAnswer().length() == 0) {
+                return "wrong parameter";
+            } else if (question.getOptions() == null ||question.getOptions().length() == 0) {
+                return "wrong parameter";
             }
-            result = questionMapper.insertQuestion(param);
-        } else if ((Integer) param.get("type") == 3) { // 判断
-            if (param.get("answer") == null ||param.get("answer").toString().length() == 0) {
-                return "参数错误，没有答案";
+            result = questionMapper.insertQuestion(question);
+        } else if (question.getType() == 3) { // 判断
+            if (question.getAnswer() == null ||question.getAnswer().length() == 0) {
+                return "wrong parameter";
             }
-            param.put("options", "");
-            result = questionMapper.insertQuestion(param);
+            question.setOptions("");
+            result = questionMapper.insertQuestion(question);
         }
 
         if (result > 0) {
-            return "插入成功！";
+            return "insertQuestionSuccess";
         } else {
-            return "插入失败！";
+            return "insertQuestionFailed";
         }
     }
 
-    public String deleteQuestion(Map<String, Object> param) {
-        if (param.get("id") == null || (Integer) param.get("id") < 0) {
-            return "参数错误";
-        }
-        int result = questionMapper.deleteQuestion(param);
+    public String deleteQuestion(Question question) {
+        int result = questionMapper.deleteQuestion(question);
         if (result > 0) {
-            return "删除成功！";
+            return "deleteQuestionSuccess";
         } else {
-            return "删除失败！";
+            return "deleteQuestionFailed";
         }
     }
 
 
-    public String updateQuestion(Map<String, Object> param) {
-        if (param.get("id") == null || param.get("type") == null || param.get("question") == null
-        || param.get("options") == null || param.get("answer") == null) {
-            return "参数错误";
-        }
-        int result = questionMapper.updateQuestion(param);
+    public String updateQuestion(Question question) {
+        int result = questionMapper.updateQuestion(question);
         if (result > 0) {
-            return "修改成功！";
+            return "modifyQuestionSuccess";
         } else {
-            return "修改失败！";
+            return "modifyQuestionFailed";
         }
     }
 

@@ -1,36 +1,39 @@
 package com.zyx.OnlineQuestionnaire.controller;
 
+import com.zyx.OnlineQuestionnaire.model.User;
 import com.zyx.OnlineQuestionnaire.service.UserService;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-
-@RestController
+@Controller
+//@ResponseBody
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
     private UserService userService;
 
-    @RequestMapping(value="/add") // Map ONLY GET REQUESTs.
-    public String addNewUser (@RequestBody Map<String, Object> param) {
-        return userService.addNewUser(param);
+    @PostMapping(value="/add")
+    public String addNewUser (@RequestParam("name") String name, @RequestParam String studentId,
+                              @RequestParam String password) {
+        User user = new User(studentId, name, password);
+        return userService.addNewUser(user);
     }
 
-    @RequestMapping(value = "/login")
-    public String login(@RequestBody Map<String, Object> param) {
-        return userService.login(param);
+    @RequestMapping(value = "/register")
+    public String regiseter() {
+        return "addUser";
     }
 
-    /**
-     * 域名的根目录，然后返回的“index”会映射到
-     * java/resources/templates/index.html文件。
-     *
-     */
-    @RequestMapping(path="/")
-    public String welcomePage(@RequestParam(name="name", required=false, defaultValue="World") String namel){
-        return "index";
+
+    @PostMapping(value = "/login")
+    public String login(@RequestParam("name") String name, @RequestParam String studentId,
+                        @RequestParam String password) {
+        User user = new User(studentId, name, password);
+        return userService.login(user);
     }
+
 }

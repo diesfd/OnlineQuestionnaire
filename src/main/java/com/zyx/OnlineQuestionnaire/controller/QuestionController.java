@@ -1,5 +1,6 @@
 package com.zyx.OnlineQuestionnaire.controller;
 
+import com.zyx.OnlineQuestionnaire.model.Question;
 import com.zyx.OnlineQuestionnaire.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,17 +24,17 @@ public class QuestionController {
     }
 
     @RequestMapping(value = "/insert")
-    public String insertQuestion(@RequestBody Map<String, Object> param) {
+    public String insertQuestion(@RequestBody Question param) {
         return questionService.insertQuestion(param);
     }
 
     @RequestMapping(value = "/delete")
-    public String deleteQuestion(@RequestBody Map<String, Object> param) {
+    public String deleteQuestion(@RequestBody Question param) {
         return questionService.deleteQuestion(param);
     }
 
     @RequestMapping(value = "/update")
-    public String updateQuestion(@RequestBody Map<String, Object> param) {
+    public String updateQuestion(@RequestBody Question param) {
         return questionService.updateQuestion(param);
     }
 
