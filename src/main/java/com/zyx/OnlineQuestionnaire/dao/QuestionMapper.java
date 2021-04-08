@@ -13,7 +13,7 @@ public interface QuestionMapper {
     List<Map<String, Object>> getAllQuestions();
 
     @Insert("insert into t_question(type, question, answer, options) values (#{type}, #{question}, #{answer}, #{options})")
-    int insertQuestion(Question param);
+    int insertQuestion(Map<String, Object> param);
 
     @Delete("delete from t_question where id = #{id}")
     int deleteQuestion(Question param);

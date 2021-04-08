@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>添加题目</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+<script>
+    function validateForm() {
+        // var x = document.forms["newQuestion"]["studentId"].value;
+        // if (x == null || x == "") {
+        //     alert("需要输入学号。");
+        //     return false;
+        // }
+        // x = document.forms["newQuestion"]["name"].value;
+        // if (x == null || x == "") {
+        //     alert("需要输入名字。");
+        //     return false;
+        // }
+        // x = document.forms["newQuestion"]["password"].value;
+        // if (x == null || x == "") {
+        //     alert("需要输入密码。");
+        //     return false;
+        // }
+        var type = document.forms["newQuestion"]["type"].value;
+        var question = document.forms["newQuestion"]["question"].value;
+        var answer = document.forms["newQuestion"]["answer"].value;
+        var options = document.forms["newQuestion"]["options"].value;
+        if (type == null || type == "") {
+            alert()
+        }
+        if (question == null || question == "") {
+            alert("请输入问题")
+            return false;
+        }
+        if (type == 2 && (answer == null || answer == "" || options == null || options == "")) {
+            alert("选择题请输入选项和答案")
+            return false;
+        }
+        if (type == 3 && (answer == null || answer == "")) {
+            alert("判断题请输入答案")
+            return false;
+        }
+
+    }
+</script>
+<div align="center" class="add">
+    <h2>添加题目</h2>
+    <form name="newQuestion" onsubmit="return validateForm()" action="/question/insert" method="POST">
+        类型:
+        <select name="type">
+            <option value="1">填空</option>
+            <option value="2">选择</option>
+            <option value="3">判断</option>
+        </select><br>
+        问题:<input type="text" name="question"><br>
+        答案:<input type="text" name="answer"><br>
+        选项:<input type="text" name="options"><br>
+        <input type="submit" value="添加">
+    </form>
+</div>
+</body>
+
+</html>

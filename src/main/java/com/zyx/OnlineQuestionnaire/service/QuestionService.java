@@ -20,27 +20,27 @@ public class QuestionService {
         return questionMapper.getAllQuestions();
     }
 
-    public String insertQuestion(Question question) {
+    public String insertQuestion(Map<String, Object> param) {
 
         int result = 0;
         // 填空
-        if (question.getType() == 1) { //填空
-            question.setAnswer("");
-            question.setOptions("");
-            result = questionMapper.insertQuestion(question);
-        } else if (question.getType() == 2) { //选择
-            if (question.getAnswer() == null ||question.getAnswer().length() == 0) {
+        if ((Integer)param.get("type") == 1) { //填空
+            param.put("answer", "");
+            param.put("options", "");
+            result = questionMapper.insertQuestion(param);
+        } else if ((Integer)param.get("type") == 2) { //选择
+            if (param.get("answer") == null ||param.get("answer").toString().length() == 0) {
                 return "wrong parameter";
-            } else if (question.getOptions() == null ||question.getOptions().length() == 0) {
-                return "wrong parameter";
-            }
-            result = questionMapper.insertQuestion(question);
-        } else if (question.getType() == 3) { // 判断
-            if (question.getAnswer() == null ||question.getAnswer().length() == 0) {
+            } else if (param.get("options") == null ||param.get("options").toString().length() == 0) {
                 return "wrong parameter";
             }
-            question.setOptions("");
-            result = questionMapper.insertQuestion(question);
+            result = questionMapper.insertQuestion(param);
+        } else if ((Integer)param.get("type") == 3) { // 判断
+            if (param.get("answer") == null ||param.get("answer").toString().length() == 0) {
+                return "wrong parameter";
+            }
+            param.put("options","");
+            result = questionMapper.insertQuestion(param);
         }
 
         if (result > 0) {

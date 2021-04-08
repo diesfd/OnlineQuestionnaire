@@ -3,14 +3,17 @@ package com.zyx.OnlineQuestionnaire.controller;
 import com.zyx.OnlineQuestionnaire.model.Question;
 import com.zyx.OnlineQuestionnaire.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping("/question")
 public class QuestionController {
 
@@ -18,13 +21,25 @@ public class QuestionController {
     private QuestionService questionService;
 
     @RequestMapping(value = "/getAll")
-    public List<Map<String, Object>> getAllQuestions() {
+    public String getAllQuestions(Model model) {
         List<Map<String, Object>> result = questionService.getAllQuestions();
-        return result;
+        model.addAttribute("questionList", result);
+        return "questionRepository";
+    }
+
+    @RequestMapping(value = "/add")
+    public String addPage() {
+        return "newQuestion";
     }
 
     @RequestMapping(value = "/insert")
-    public String insertQuestion(@RequestBody Question param) {
+    public String insertQuestion(@RequestParam("type") int type, @RequestParam("question") String question,
+                                 @RequestParam("answer") String answer, @RequestParam("options") String options) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("type", type);
+        param.put("question", question);
+        param.put("answer", answer);
+        param.put("options", options);
         return questionService.insertQuestion(param);
     }
 
@@ -39,7 +54,8 @@ public class QuestionController {
     }
 
     @RequestMapping(value = "/search")
-    public List<Map<String, Object>> searhQuestion(@RequestBody Map<String, Object> param) {
-        return questionService.searchQuestion(param);
+    public String searhQuestion(@RequestBody Map<String, Object> param) {
+        List<Map<String, Object>> result = questionService.searchQuestion(param);
+        return "questionRepository";
     }
 }
