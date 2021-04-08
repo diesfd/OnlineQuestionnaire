@@ -27,9 +27,9 @@
         <tr th:each="question:${questionList}">
             <td><span th:text="${question.id}">Default</span></td>
             <td><span th:text="${question.question}">Default</span></td>
-            <td><span th:text="${question.type}">Default</span></td>
+            <td><span th:text="${question.typeName}">Default</span></td>
             <td><span th:text="${question.options}">Default</span></td>
-            <td><span th:text="${question.answer}">Default</span></td>
+            <td><span th:text="${question.answerName}">Default</span></td>
         </tr>
 </table>
 </div>

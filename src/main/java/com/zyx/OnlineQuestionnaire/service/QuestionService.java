@@ -17,7 +17,32 @@ public class QuestionService {
     }
 
     public List<Map<String, Object>> getAllQuestions(){
-        return questionMapper.getAllQuestions();
+        List<Map<String, Object>> result = questionMapper.getAllQuestions();
+        for (Map<String, Object> question : result) {
+            switch ((Integer) question.get("type")) {
+                case 1:
+                    question.put("typeName", "填空题");
+                    question.put("answerName", "");
+                    break;
+                case 2:
+                    question.put("typeName", "选择题");
+                    String optionsStr = question.get("options").toString();
+                    optionsStr = optionsStr.replace("[", "");
+                    optionsStr = optionsStr.replace("]", "");
+                    String [] optionsList = optionsStr.split(",");
+                    question.put("answerName", optionsList[Integer.parseInt(question.get("answer").toString())]);
+                    break;
+                case 3:
+                    question.put("typeName", "判断题");
+                    if (question.get("answer").toString().equals("1")) {
+                        question.put("answerName", "对");
+                    } else {
+                        question.put("answerName", "错");
+                    }
+                    break;
+            }
+        }
+        return result;
     }
 
     public String insertQuestion(Map<String, Object> param) {
