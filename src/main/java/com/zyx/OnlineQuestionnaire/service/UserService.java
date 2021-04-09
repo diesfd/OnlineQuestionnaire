@@ -18,13 +18,13 @@ public class UserService {
     public String addNewUser(User user) {
         List<User> users = findUserByStudentId(user);
         if (users != null && users.size() > 0) {
-            return "repeatedAccount";
+            return "createUserFailed";
         }
         int result = userMapper.addNewUser(user);
         if (result >= 1)
-            return "registerSuccess";
+            return "createUserSuccess";
         else
-            return "registerFailed";
+            return "createUserFailed";
     }
 
     public List<User> findUserByStudentId(User user) {
