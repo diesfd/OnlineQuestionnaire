@@ -3,10 +3,31 @@
 
 <head>
     <title>题库</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="index.css">
 </head>
-
+<script>
+    function loadXMLDoc(obj) {
+        var xmlhttp;
+        if (window.XMLHttpRequest) {
+            // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("delete").innerHTML = xmlhttp.responseText;
+            }
+        }
+        console.log(obj);
+        var $td = obj.parents('td').children('th');
+        var id = $td.eq(0).children('th').eq(0).text();
+        xmlhttp.open("GET", `/question/delete?id=${id}`, true);
+        xmlhttp.send();
+    }
+</script>
 <body>
 <div align="center">
     <h2>题库</h2>
@@ -16,22 +37,26 @@
 
 <div align="center">
     <a th:href="@{add}">添加问题</a>
-<table border="1">
-    <tr>
-        <td>编号</td>
-        <td>问题</td>
-        <td>问题类型</td>
-        <td>选项</td>
-        <td>答案</td>
-    </tr>
+    <form name="newQuestion" onsubmit="return validateForm()" action="/question/delete" method="POST">
+        编号:<input type="text" name="id"><br>
+        <input type="submit" value="删除">
+    </form>
+    <table border="1">
+        <tr>
+            <td>编号</td>
+            <td>问题</td>
+            <td>问题类型</td>
+            <td>选项</td>
+            <td>答案</td>
+        </tr>
         <tr th:each="question:${questionList}">
-            <td><span th:text="${question.id}">Default</span></td>
+            <td><span id="id" th:text="${question.id}">Default</span></td>
             <td><span th:text="${question.question}">Default</span></td>
             <td><span th:text="${question.typeName}">Default</span></td>
             <td><span th:text="${question.options}">Default</span></td>
             <td><span th:text="${question.answerName}">Default</span></td>
         </tr>
-</table>
+    </table>
 </div>
 </body>
 

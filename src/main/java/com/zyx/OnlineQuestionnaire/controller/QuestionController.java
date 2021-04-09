@@ -20,7 +20,7 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
-    @RequestMapping(value = "/getAll")
+    @RequestMapping(value = "/questionRepository")
     public String getAllQuestions(Model model) {
         List<Map<String, Object>> result = questionService.getAllQuestions();
         model.addAttribute("questionList", result);
@@ -44,8 +44,13 @@ public class QuestionController {
     }
 
     @RequestMapping(value = "/delete")
-    public String deleteQuestion(@RequestBody Question param) {
-        return questionService.deleteQuestion(param);
+    public String deleteQuestion(@RequestParam Integer id) {
+        return questionService.deleteQuestion(id);
+    }
+
+    @RequestMapping(value = "/modify")
+    public String modifyPage() {
+        return "modifyQuestion";
     }
 
     @RequestMapping(value = "/update")

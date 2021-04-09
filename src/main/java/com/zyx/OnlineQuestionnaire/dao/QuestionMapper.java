@@ -16,7 +16,7 @@ public interface QuestionMapper {
     int insertQuestion(Map<String, Object> param);
 
     @Delete("delete from t_question where id = #{id}")
-    int deleteQuestion(Question param);
+    int deleteQuestion(Integer id);
 
     @Update("UPDATE t_question SET type = #{type}, question = #{question}, answer = #{answer}, options = #{options} WHERE id = #{id}")
     int updateQuestion(Question param);

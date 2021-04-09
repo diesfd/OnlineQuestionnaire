@@ -75,8 +75,8 @@ public class QuestionService {
         }
     }
 
-    public String deleteQuestion(Question question) {
-        int result = questionMapper.deleteQuestion(question);
+    public String deleteQuestion(Integer id) {
+        int result = questionMapper.deleteQuestion(id);
         if (result > 0) {
             return "deleteQuestionSuccess";
         } else {
