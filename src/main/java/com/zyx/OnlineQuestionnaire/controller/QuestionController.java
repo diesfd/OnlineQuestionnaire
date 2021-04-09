@@ -27,7 +27,7 @@ public class QuestionController {
         return "questionRepository";
     }
 
-    @RequestMapping(value = "/add")
+    @RequestMapping(value = "/addPage")
     public String addPage() {
         return "newQuestion";
     }
@@ -48,7 +48,7 @@ public class QuestionController {
         return questionService.deleteQuestion(id);
     }
 
-    @RequestMapping(value = "/modify")
+    @RequestMapping(value = "/modifyPage")
     public String modifyPage() {
         return "modifyQuestion";
     }

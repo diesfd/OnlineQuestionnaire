@@ -24,11 +24,11 @@ public class QuestionnaireService {
         List<String> questionIdList = Arrays.asList(param.get("list").toString().split("\\s*,\\s*"));
         List<Map<String, Object>> questionList = questionnaireMapper.getQuestionList(questionIdList);
 
-        List<Object> points = (List<Object>) param.get("points");
+        List<Object> points = Arrays.asList(param.get("points").toString().split("\\s*,\\s*"));
         int total = 0;
         for (int i = 0; i < questionList.size(); i++) {
             questionList.get(i).put("point", points.get(i));
-            total += (Integer) points.get(i);
+            total += Integer.parseInt(points.get(i).toString());
         }
 
         String json = JSON.toJSONString(questionList);
@@ -38,9 +38,9 @@ public class QuestionnaireService {
         int result = questionnaireMapper.createQuestionnaire(param);
 
         if (result > 0) {
-            return "插入成功！";
+            return "createQuestionnaireSuccess";
         } else {
-            return "插入失败！";
+            return "createQuestionnaireFailed";
         }
     }
 

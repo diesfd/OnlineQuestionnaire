@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>添加题目</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+<script>
+    function validateForm() {
+        var title = document.forms["newQuestion"]["title"].value;
+        var list = document.forms["newQuestion"]["list"].value;
+        var points = document.forms["newQuestion"]["points"].value;
+        if (title == null || title == "") {
+            alert("请输入标题")
+            return false;
+        }
+        if (list == null || list == "") {
+            alert("请输入题目列表")
+            return false;
+        }
+        if (points == null || points == "") {
+            alert("请输入分数")
+            return false;
+        }
+    }
+</script>
+<div align="center" class="add">
+    <h2>添加题目</h2>
+    <form name="newQuestion" onsubmit="return validateForm()" action="/questionnaire/create" method="POST">
+        标题:<input type="text" name="title"><br>
+        题目:<input type="text" name="list"><br>
+        分数:<input type="text" name="points"><br>
+        <input type="submit" value="添加">
+    </form><br>
+    <a th:href="@{/question/questionRepository}">返回题库</a>
+    <a th:href="@{questionnaireRepository}">返回问卷库</a>
+</div>
+</body>
+
+</html>

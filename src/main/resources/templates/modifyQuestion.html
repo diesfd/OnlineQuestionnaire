@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>添加题目</title>
+    <title>修改题目</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="index.css">
 </head>
@@ -33,8 +33,9 @@
     }
 </script>
 <div align="center" class="add">
-    <h2>添加题目</h2>
+    <h2>修改题目</h2>
     <form name="newQuestion" onsubmit="return validateForm()" action="/question/insert" method="POST">
+        编号:<input type="text" name="id"><br>
         类型:
         <select name="type">
             <option value="1">填空</option>
@@ -48,6 +49,7 @@
     </form><br>
     <a th:href="@{/question/questionRepository}">返回</a>
 </div>
+
 </body>
 
 </html>
