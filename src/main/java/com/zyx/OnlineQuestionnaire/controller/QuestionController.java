@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/question")
+@RequestMapping("/notnow")
 public class QuestionController {
 
     @Autowired

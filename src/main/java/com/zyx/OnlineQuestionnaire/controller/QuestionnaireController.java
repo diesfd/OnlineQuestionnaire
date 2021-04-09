@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/questionnaire")
+@RequestMapping("/not now1")
 public class QuestionnaireController {
 
     @Autowired
