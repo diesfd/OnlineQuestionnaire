@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface UserMapper {
@@ -14,5 +14,5 @@ public interface UserMapper {
     int addNewUser(User user);
 
     @Select("select * from t_user tu where tu.student_id = #{studentId}")
-    List<User> findUserByStudentId(User user);
+    Optional<User> findUserByStudentId(int studentId);
 }

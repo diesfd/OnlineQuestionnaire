@@ -1,14 +1,21 @@
 package com.zyx.OnlineQuestionnaire.model;
 
 public class User {
-    String studentId, name, password;
+    String student_id, name, password, role;
 
-    public String getStudentId() {
-        return studentId;
+    public User(String student_id, String name, String password, String role) {
+        this.student_id = student_id;
+        this.name = name;
+        this.password = password;
+        this.role = role;
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public String getStudent_id() {
+        return student_id;
+    }
+
+    public void setStudent_id(String student_id) {
+        this.student_id = student_id;
     }
 
     public String getName() {
@@ -27,9 +34,11 @@ public class User {
         this.password = password;
     }
 
-    public User(String studentId, String name, String password) {
-        this.studentId = studentId;
-        this.name = name;
-        this.password = password;
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
