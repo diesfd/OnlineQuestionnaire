@@ -10,7 +10,7 @@ import java.util.Optional;
 @Mapper
 public interface UserMapper {
 
-    @Insert("insert into t_user (student_id, name, password) values (#{studentId}, #{name}, #{password})")
+    @Insert("insert into t_user (student_id, name, password) values (#{student_id}, #{name}, #{password})")
     int addNewUser(User user);
 
     @Select("select * from t_user tu where tu.student_id = #{studentId}")

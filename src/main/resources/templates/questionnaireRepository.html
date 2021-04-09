@@ -9,8 +9,7 @@
 <body>
 <div align="center">
     <h2>问卷库</h2>
-    <a th:href="@{/user/register}">用户注册</a>
-    <a th:href="@{/user/login}">用户登录</a>
+    <a th:href="@{/logout}">退出</a><br>
 </div>
 
 <div align="center">
@@ -29,6 +28,7 @@
             <td><span th:text="${questionnaire.title}">Default</span></td>
         </tr>
     </table>
+    <a th:href="@{/}">返回首页</a><br>
 </div>
 </body>
 

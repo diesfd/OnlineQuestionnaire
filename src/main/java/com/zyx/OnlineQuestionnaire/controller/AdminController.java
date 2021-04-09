@@ -35,7 +35,7 @@ public class AdminController {
         return questionnaireService.createQuestionnaire(param);
     }
 
-    @RequestMapping(value = "questionnaire/createPage")
+    @RequestMapping(value = "/questionnaire/createPage")
     public String createPage() {
         return "createQuestionnaire";
     }

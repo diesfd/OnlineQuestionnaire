@@ -11,20 +11,20 @@
 
 <div align="center">
     <h2>题库</h2>
-    <a th:href="@{/user/register}">用户注册</a>
-    <a th:href="@{/user/login}">用户登录</a>
+    <a th:href="@{/logout}">退出</a><br>
 </div>
 
 <div align="center">
-    <a th:href="@{addPage}">添加问题</a>
-    <form name="newQuestion" onsubmit="return validateForm()" action="/question/delete" method="POST">
+
+    <a th:href="@{/admin/addPage}">添加问题</a>
+    <form name="newQuestion" onsubmit="return validateForm()" action="/admin/delete" method="POST">
         编号:<input type="text" name="id"><br>
         <input type="submit" value="删除">
     </form><br>
-    <a th:href="@{modifyPage}">修改问题</a>
-    <a th:href="@{/questionnaire/createPage}">新建问卷</a> <br>
+    <a th:href="@{/admin/modifyPage}">修改问题</a>
+    <a th:href="@{/admin/questionnaire/createPage}">新建问卷</a> <br>
 
-    <form name="search" action="/question/search" method="POST">
+    <form name="search" action="/admin/search" method="POST">
         类型:<select name="type">
         <option value="0">任意</option>
         <option value="1">填空</option>
@@ -51,6 +51,7 @@
             <td><span th:text="${question.answerName}">Default</span></td>
         </tr>
     </table>
+    <a th:href="@{/}">返回首页</a><br>
 </div>
 </body>
 
