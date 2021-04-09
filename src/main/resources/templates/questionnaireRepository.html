@@ -14,9 +14,8 @@
 </div>
 
 <div align="center">
-    <a th:href="@{addPage}">添加问题</a>
-    <form name="newQuestion" onsubmit="return validateForm()" action="/question/delete" method="POST">
-        编号:<input type="text" name="id"><br>
+    <form name="deleteQuestionnaire" action="/questionnaire/delete" method="POST">
+        问卷编号:<input type="text" name="id"><br>
         <input type="submit" value="删除">
     </form><br>
     <a th:href="@{/questionnaire/createPage}">新建问卷</a> <br>
@@ -25,7 +24,7 @@
             <td>编号</td>
             <td>问卷标题</td>
         </tr>
-        <tr th:each="questionnaire:${questionList}">
+        <tr th:each="questionnaire:${questionnaireList}">
             <td><span th:text="${questionnaire.id}">Default</span></td>
             <td><span th:text="${questionnaire.title}">Default</span></td>
         </tr>

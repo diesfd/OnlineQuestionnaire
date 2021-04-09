@@ -3,6 +3,7 @@ package com.zyx.OnlineQuestionnaire.controller;
 import com.zyx.OnlineQuestionnaire.service.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,24 +29,23 @@ public class QuestionnaireController {
         return questionnaireService.createQuestionnaire(param);
     }
 
-    @RequestMapping(value = "questionnaireRepository")
-    public String repoPage() {
-        return "questionnaireRepository";
-    }
-
     @RequestMapping(value = "createPage")
     public String createPage() {
         return "createQuestionnaire";
     }
 
     @RequestMapping(value = "/delete")
-    public String deleteQuestionnaire(@RequestBody Map<String, Object> param) {
+    public String deleteQuestionnaire(@RequestParam String id) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("id", id);
         return questionnaireService.deleteQuestionnaire(param);
     }
 
-    @RequestMapping(value = "/get")
-    public List<Map<String, Object>> getQuestionnaire(@RequestBody Map<String, Object> param) {
-        return questionnaireService.getQuestionnaire(param);
+    @RequestMapping(value = "/questionnaireRepository")
+    public String getAllQuestionnaire(Model model) {
+        List<Map<String, Object>> result = questionnaireService.getAllQuestionnaire();
+        model.addAttribute("questionnaireList", result);
+        return "questionnaireRepository";
     }
 
     @RequestMapping(value = "/submit")

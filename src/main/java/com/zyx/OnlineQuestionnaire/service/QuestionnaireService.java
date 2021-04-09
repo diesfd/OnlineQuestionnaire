@@ -16,8 +16,8 @@ public class QuestionnaireService {
         this.questionnaireMapper = questionnaireMapper;
     }
 
-    public List<Map<String, Object>> getQuestionnaire(Map<String, Object> param) {
-        return questionnaireMapper.getQuestionniare(param);
+    public List<Map<String, Object>> getAllQuestionnaire() {
+        return questionnaireMapper.getAllQuestionniare();
     }
 
     public String createQuestionnaire(Map<String, Object> param) {
@@ -48,14 +48,14 @@ public class QuestionnaireService {
         int result = questionnaireMapper.deleteQuestionnaire(param);
 
         if (result > 0) {
-            return "删除成功！";
+            return "deleteQuestionnaireSuccess";
         } else {
-            return "删除失败！";
+            return "deleteQuestionnaireFailed";
         }
     }
 
     public Map<String, Object> submitQuestionnaire(Map<String, Object> param) {
-        List<Map<String, Object>> questionnaire = getQuestionnaire(param);
+        List<Map<String, Object>> questionnaire = getAllQuestionnaire();
 
         String questionsStr = questionnaire.get(0).get("questions").toString();
         List<Map> questionList = JSONArray.parseArray(questionsStr, Map.class);

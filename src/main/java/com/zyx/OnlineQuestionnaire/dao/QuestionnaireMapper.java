@@ -32,6 +32,9 @@ public interface QuestionnaireMapper {
             "</script>")
     List<Map<String, Object>> getQuestionniare(Map<String, Object> param);
 
+    @Select("select * from t_questionnaire")
+    List<Map<String, Object>> getAllQuestionniare();
+
     @Select("select * from t_result tr where tr.student_id = #{studentId} and tr.questionnaire_id = #{questionnaireId}")
     List<Map<String, Object>> selectResult(Map<String, Object> param);
 
