@@ -25,7 +25,7 @@ public interface QuestionMapper {
             "select * from t_question tq"+
             "<where>"+
             " 1=1"+
-            "<if test='type != null'> and tq.type=#{type}</if>"+
+            "<if test='type != null and type != 0'> and tq.type=#{type}</if>"+
             "<if test='keyword != null'> and tq.question like concat('%',concat(#{keyword}, '%'))</if>"+
             "</where>"+
             "</script>")

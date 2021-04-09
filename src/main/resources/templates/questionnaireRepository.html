@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>题库</title>
+    <title>问卷库</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
 <div align="center">
-    <h2>题库</h2>
+    <h2>问卷库</h2>
     <a th:href="@{/user/register}">用户注册</a>
     <a th:href="@{/user/login}">用户登录</a>
 </div>
@@ -19,22 +19,15 @@
         编号:<input type="text" name="id"><br>
         <input type="submit" value="删除">
     </form><br>
-    <a th:href="@{modifyPage}">修改问题</a>
     <a th:href="@{/questionnaire/createPage}">新建问卷</a> <br>
     <table border="1">
         <tr>
             <td>编号</td>
-            <td>问题</td>
-            <td>问题类型</td>
-            <td>选项</td>
-            <td>答案</td>
+            <td>问卷标题</td>
         </tr>
-        <tr th:each="question:${questionList}">
-            <td><span id="id" th:text="${question.id}">Default</span></td>
-            <td><span th:text="${question.question}">Default</span></td>
-            <td><span th:text="${question.typeName}">Default</span></td>
-            <td><span th:text="${question.options}">Default</span></td>
-            <td><span th:text="${question.answerName}">Default</span></td>
+        <tr th:each="questionnaire:${questionList}">
+            <td><span th:text="${questionnaire.id}">Default</span></td>
+            <td><span th:text="${questionnaire.title}">Default</span></td>
         </tr>
     </table>
 </div>

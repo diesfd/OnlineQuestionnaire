@@ -16,7 +16,7 @@ public class QuestionService {
         this.questionMapper = questionMapper;
     }
 
-    public List<Map<String, Object>> getAllQuestions(){
+    public List<Map<String, Object>> getAllQuestions() {
         List<Map<String, Object>> result = questionMapper.getAllQuestions();
         for (Map<String, Object> question : result) {
             switch ((Integer) question.get("type")) {
@@ -29,7 +29,7 @@ public class QuestionService {
                     String optionsStr = question.get("options").toString();
                     optionsStr = optionsStr.replace("[", "");
                     optionsStr = optionsStr.replace("]", "");
-                    String [] optionsList = optionsStr.split(",");
+                    String[] optionsList = optionsStr.split(",");
                     question.put("answerName", optionsList[Integer.parseInt(question.get("answer").toString())]);
                     break;
                 case 3:
@@ -49,22 +49,22 @@ public class QuestionService {
 
         int result = 0;
         // 填空
-        if ((Integer)param.get("type") == 1) { //填空
+        if ((Integer) param.get("type") == 1) { //填空
             param.put("answer", "");
             param.put("options", "");
             result = questionMapper.insertQuestion(param);
-        } else if ((Integer)param.get("type") == 2) { //选择
-            if (param.get("answer") == null ||param.get("answer").toString().length() == 0) {
+        } else if ((Integer) param.get("type") == 2) { //选择
+            if (param.get("answer") == null || param.get("answer").toString().length() == 0) {
                 return "wrong parameter";
-            } else if (param.get("options") == null ||param.get("options").toString().length() == 0) {
+            } else if (param.get("options") == null || param.get("options").toString().length() == 0) {
                 return "wrong parameter";
             }
             result = questionMapper.insertQuestion(param);
-        } else if ((Integer)param.get("type") == 3) { // 判断
-            if (param.get("answer") == null ||param.get("answer").toString().length() == 0) {
+        } else if ((Integer) param.get("type") == 3) { // 判断
+            if (param.get("answer") == null || param.get("answer").toString().length() == 0) {
                 return "wrong parameter";
             }
-            param.put("options","");
+            param.put("options", "");
             result = questionMapper.insertQuestion(param);
         }
 
@@ -95,6 +95,31 @@ public class QuestionService {
     }
 
     public List<Map<String, Object>> searchQuestion(Map<String, Object> param) {
-        return questionMapper.searchQuestion(param);
+        List<Map<String, Object>> result = questionMapper.searchQuestion(param);
+        for (Map<String, Object> question : result) {
+            switch ((Integer) question.get("type")) {
+                case 1:
+                    question.put("typeName", "填空题");
+                    question.put("answerName", "");
+                    break;
+                case 2:
+                    question.put("typeName", "选择题");
+                    String optionsStr = question.get("options").toString();
+                    optionsStr = optionsStr.replace("[", "");
+                    optionsStr = optionsStr.replace("]", "");
+                    String[] optionsList = optionsStr.split(",");
+                    question.put("answerName", optionsList[Integer.parseInt(question.get("answer").toString())]);
+                    break;
+                case 3:
+                    question.put("typeName", "判断题");
+                    if (question.get("answer").toString().equals("1")) {
+                        question.put("answerName", "对");
+                    } else {
+                        question.put("answerName", "错");
+                    }
+                    break;
+            }
+        }
+        return result;
     }
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>搜索结果</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+<div align="center">
+    <h2>搜索结果</h2>
+</div>
+
+<div align="center">
+
+    <table border="1">
+        <tr>
+            <td>编号</td>
+            <td>问题</td>
+            <td>问题类型</td>
+            <td>选项</td>
+            <td>答案</td>
+        </tr>
+        <tr th:each="question:${questionList}">
+            <td><span id="id" th:text="${question.id}">Default</span></td>
+            <td><span th:text="${question.question}">Default</span></td>
+            <td><span th:text="${question.typeName}">Default</span></td>
+            <td><span th:text="${question.options}">Default</span></td>
+            <td><span th:text="${question.answerName}">Default</span></td>
+        </tr>
+    </table>
+
+    <a th:href="@{questionRepository}">返回题库</a>
+</div>
+</body>
+
+</html>

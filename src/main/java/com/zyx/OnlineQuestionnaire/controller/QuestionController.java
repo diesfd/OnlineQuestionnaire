@@ -59,8 +59,15 @@ public class QuestionController {
     }
 
     @RequestMapping(value = "/search")
-    public String searhQuestion(@RequestBody Map<String, Object> param) {
+    public String searhQuestion(@RequestParam String type, @RequestParam String keyword, Model model) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("type", type);
+        if (keyword == null)
+            param.put("keyword", "");
+        else
+            param.put("keyword", keyword);
         List<Map<String, Object>> result = questionService.searchQuestion(param);
-        return "questionRepository";
+        model.addAttribute("questionList", result);
+        return "searchQuestion";
     }
 }

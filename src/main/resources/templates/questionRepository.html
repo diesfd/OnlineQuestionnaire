@@ -8,6 +8,7 @@
 </head>
 
 <body>
+
 <div align="center">
     <h2>题库</h2>
     <a th:href="@{/user/register}">用户注册</a>
@@ -22,6 +23,18 @@
     </form><br>
     <a th:href="@{modifyPage}">修改问题</a>
     <a th:href="@{/questionnaire/createPage}">新建问卷</a> <br>
+
+    <form name="search" action="/question/search" method="POST">
+        类型:<select name="type">
+        <option value="0">任意</option>
+        <option value="1">填空</option>
+        <option value="2">选择</option>
+        <option value="3">判断</option>
+    </select>
+        关键字:<input type="text" name="keyword"><br>
+        <input type="submit" value="搜索">
+    </form><br>
+
     <table border="1">
         <tr>
             <td>编号</td>
