@@ -37,7 +37,12 @@
         </tr>
     </table><br>
 
-    <a th:href="@{/user/resultRepository}">退出</a><br>
+    <form action="/user/submit" method="POST">
+        得分（所有填空题，用逗号隔开）:<input type="text" name="studentAnswer"><br>
+        <input type="submit" value="提交">
+    </form><br>
+
+    <a th:href="@{/admin/resultRepository}">返回</a><br>
 
 </div>
 </body>

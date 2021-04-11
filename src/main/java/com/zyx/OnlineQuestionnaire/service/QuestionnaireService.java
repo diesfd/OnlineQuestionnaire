@@ -93,6 +93,10 @@ public class QuestionnaireService {
 //        param.put("correctAnswerList", correctAnswerList.toString());
         param.put("studentAnswer", param.get("studentAnswer").toString());
         param.put("questionnaireTitle", questionnaireMapper.getQuestionnaireTitle(param.get("questionnaireId").toString()));
+
+
+        String questionListStr = JSON.toJSONString(questionList);
+        param.put("questionList", questionListStr);
         questionnaireMapper.submitQuestionnaire(param);
 
         Map<String, Object> rsp = new HashMap<>();
