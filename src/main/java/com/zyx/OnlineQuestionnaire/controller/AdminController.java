@@ -3,6 +3,7 @@ package com.zyx.OnlineQuestionnaire.controller;
 import com.zyx.OnlineQuestionnaire.model.Question;
 import com.zyx.OnlineQuestionnaire.service.QuestionService;
 import com.zyx.OnlineQuestionnaire.service.QuestionnaireService;
+import com.zyx.OnlineQuestionnaire.service.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,9 @@ public class AdminController {
 
     @Autowired
     private QuestionnaireService questionnaireService;
+
+    @Autowired
+    private ResultService resultService;
 
 
     @RequestMapping(value = "questionnaire/create")
@@ -96,5 +100,24 @@ public class AdminController {
         List<Map<String, Object>> result = questionService.getAllQuestions();
         model.addAttribute("questionList", result);
         return "questionRepository";
+    }
+
+    @RequestMapping(value = "/resultRepository")
+    public String getResultRepositoryPage(Model model) {
+        List<Map<String, Object>> result = resultService.getAllResult();
+        model.addAttribute("resultList", result);
+        return "adminResultRepository";
+    }
+
+    @RequestMapping(value = "/markPage")
+    public String getMarkPage(@RequestParam("id") String id, Model model) {
+        Map<String, Object> result = resultService.getResultById(id);
+        model.addAttribute("resultMap", result);
+        return "markPage";
+    }
+
+    @RequestMapping(value = "/mark")
+    public String mark(int id) {
+        return resultService.mark(id);
     }
 }

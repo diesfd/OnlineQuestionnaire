@@ -13,11 +13,17 @@
 </div>
 
 <div align="center">
-    <form name="deleteQuestionnaire" action="/questionnaire/delete" method="POST">
+    <form name="deleteQuestionnaire" action="/admin/questionnaire/delete" method="POST">
         问卷编号:<input type="text" name="id"><br>
         <input type="submit" value="删除">
-    </form><br>
+    </form>
+    <br>
     <a th:href="@{/questionnaire/createPage}">新建问卷</a> <br>
+    <form name="answerQuestionnaire" action="/user/answerPage" method="POST">
+        答题问卷编号:<input type="text" name="questionnaireId">
+        <input type="submit" value="答题">
+    </form>
+    <br>
     <table border="1">
         <tr>
             <td>编号</td>

@@ -3,6 +3,8 @@ package com.zyx.OnlineQuestionnaire.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.zyx.OnlineQuestionnaire.dao.QuestionnaireMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -55,45 +57,74 @@ public class QuestionnaireService {
     }
 
     public Map<String, Object> submitQuestionnaire(Map<String, Object> param) {
-        List<Map<String, Object>> questionnaire = getAllQuestionnaire();
+        List<Map> questionList = getQuestionnaireById((Integer) param.get("questionnaireId"));
 
-        String questionsStr = questionnaire.get(0).get("questions").toString();
-        List<Map> questionList = JSONArray.parseArray(questionsStr, Map.class);
-        List<Object> studentAnswer = (List<Object>) param.get("studentAnswer");
+        List<String> studentAnswer = Arrays.asList(param.get("studentAnswer").toString().split(","));
 
+        int doesntHaveBlankQuestion = 1;
         int score = 0;
-        List<Integer> correctAnswerList = new LinkedList<>();
+//        List<String> correctAnswerList = new LinkedList<>();
         for (int i = 0; i < questionList.size(); i++) {
             Map<String, Object> question = questionList.get(i);
             question.put("studentAnswer", studentAnswer.get(i));
 
             if ((Integer)question.get("type") == 1) {
-                if (question.get("answer").toString().equals(""))
-                    continue;
-                else {
-                    if (question.get("answer").equals(studentAnswer.get(i).toString())) {
-                        score += (Integer) question.get("point");
-                        correctAnswerList.add(i);
-                    }
-                }
+                question.put("isCorrect", "");
+                doesntHaveBlankQuestion = 0;
             } else if ((Integer) question.get("type") == 2 || (Integer) question.get("type") == 3) {
-                if (question.get("answer").equals(studentAnswer.get(i).toString())) {
+                if ((Integer) question.get("type") == 3) {
+                    question.put("studentAnswer", studentAnswer.get(i).equals("对"));
+                }
+                if (question.get("answer").equals(studentAnswer.get(i))) {
                     score += (Integer) question.get("point");
-                    correctAnswerList.add(i);
+                    question.put("isCorrect","正确");
+                } else {
+                    question.put("isCorrect","错误");
                 }
             }
         }
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String studentId = authentication.getName();
+
+        param.put("studentId", studentId);
+        param.put("marked", doesntHaveBlankQuestion);
         param.put("score", score);
-        param.put("correctAnswerList", correctAnswerList.toString());
+//        param.put("correctAnswerList", correctAnswerList.toString());
         param.put("studentAnswer", param.get("studentAnswer").toString());
-        int result = questionnaireMapper.submitQuestionnaire(param);
+        param.put("questionnaireTitle", questionnaireMapper.getQuestionnaireTitle(param.get("questionnaireId").toString()));
+        questionnaireMapper.submitQuestionnaire(param);
 
         Map<String, Object> rsp = new HashMap<>();
         rsp.put("questionList", questionList);
-        rsp.put("correctAnswerList", correctAnswerList);
         rsp.put("score", score);
 
         return rsp;
     }
+
+    public List<Map> getQuestionnaireById(int questionnaireId) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("questionnaireId", questionnaireId);
+        List<Map<String, Object>> questionnaire = questionnaireMapper.getQuestionniare(param);
+        String questionsStr = questionnaire.get(0).get("questions").toString();
+        List<Map> questionList = JSONArray.parseArray(questionsStr, Map.class);
+
+        for (Map<String, Object> question : questionList) {
+            switch ((Integer) question.get("type")) {
+                case 1:
+                    question.put("typeName", "填空题");
+                    break;
+                case 2:
+                    question.put("typeName", "选择题");
+                    break;
+                case 3:
+                    question.put("typeName", "判断题");
+                    break;
+            }
+        }
+
+        return questionList;
+    }
+
+
 }

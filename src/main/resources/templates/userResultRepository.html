@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>用户答题记录</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+<div align="center">
+    <h2>用户答题记录</h2>
+    <a th:href="@{/logout}">退出</a><br>
+</div>
+
+<div align="center">
+
+    <table border="1">
+        <tr>
+            <td>问卷编号</td>
+            <td>问卷标题</td>
+            <td>分数</td>
+            <td>批改状态</td>
+        </tr>
+        <tr th:each="result:${resultList}">
+            <td><span th:text="${result.questionnaire_id}">Default</span></td>
+            <td><span th:text="${result.questionnaire_title}">Default</span></td>
+            <td><span th:text="${result.score}">Default</span></td>
+            <td><span th:text="${result.marked}">Default</span></td>
+        </tr>
+    </table><br>
+
+
+
+</div>
+</body>
+
+</html>

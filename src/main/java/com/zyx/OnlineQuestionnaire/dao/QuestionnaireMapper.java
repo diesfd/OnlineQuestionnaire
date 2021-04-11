@@ -38,6 +38,9 @@ public interface QuestionnaireMapper {
     @Select("select * from t_result tr where tr.student_id = #{studentId} and tr.questionnaire_id = #{questionnaireId}")
     List<Map<String, Object>> selectResult(Map<String, Object> param);
 
-    @Insert("insert into t_result (student_id, student_answer, questionnaire_id, score, correct_answer_list) values (#{studentId}, #{studentAnswer}, #{questionnaireId}, #{score}, #{correctAnswerList})")
+    @Insert("insert into t_result (student_id, student_answer, questionnaire_id, score, marked, questionnaire_title, question_list) values (#{studentId}, #{studentAnswer}, #{questionnaireId}, #{score}, #{marked}, #{questionnaireTitle}, #{questionList})")
     int submitQuestionnaire(Map<String, Object> param);
+
+    @Select("select title from t_questionnaire where id = #{id}")
+    String getQuestionnaireTitle(String id);
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>答题</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+<div align="center">
+    <h2>答题</h2>
+    <a th:href="@{/logout}">退出</a><br>
+</div>
+
+<div align="center">
+
+    <table border="1">
+        <tr>
+            <td>编号</td>
+            <td>题型</td>
+            <td>题干</td>
+            <td>选项</td>
+            <td>分数</td>
+        </tr>
+        <tr th:each="question:${questionList}">
+            <td><span th:text="${question.id}">Default</span></td>
+            <td><span th:text="${question.typeName}">Default</span></td>
+            <td><span th:text="${question.question}">Default</span></td>
+            <td><span th:text="${question.options}">Default</span></td>
+            <td><span th:text="${question.point}">Default</span></td>
+        </tr>
+    </table><br>
+
+    <form action="/user/submit" method="POST">
+        问卷编号:<input type="text" name="questionnaireId"><br>
+        答案（用逗号隔开）:<input type="text" name="studentAnswer"><br>
+        <input type="submit" value="提交">
+    </form><br>
+
+</div>
+</body>
+
+</html>

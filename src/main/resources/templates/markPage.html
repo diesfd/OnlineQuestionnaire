@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>答题结果</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+<div align="center">
+    <h2>答题结果</h2>
+    <a th:href="@{/logout}">退出</a><br>
+</div>
+
+<div align="center">
+    <h2><span th:text="|得分为${resultMap.score}|"></span></h2>
+    <table border="1">
+        <tr>
+            <td>编号</td>
+            <td>题型</td>
+            <td>题干</td>
+            <td>选项</td>
+            <td>分数</td>
+            <td>学生答案</td>
+            <td>是否正确</td>
+        </tr>
+        <tr th:each="question:${resultMap.question_list}">
+            <td><span th:text="${question.id}">Default</span></td>
+            <td><span th:text="${question.typeName}">Default</span></td>
+            <td><span th:text="${question.question}">Default</span></td>
+            <td><span th:text="${question.options}">Default</span></td>
+            <td><span th:text="${question.point}">Default</span></td>
+            <td><span th:text="${question.studentAnswer}">Default</span></td>
+            <td><span th:text="${question.isCorrect}">Default</span></td>
+        </tr>
+    </table><br>
+
+    <a th:href="@{/user/resultRepository}">退出</a><br>
+
+</div>
+</body>
+
+</html>
